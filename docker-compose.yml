@@ -1,0 +1,15 @@
+services:
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: juice-shop-app
+    ports:
+    - "3000:3000"
+    environment:
+    - NODE_ENV=development
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
